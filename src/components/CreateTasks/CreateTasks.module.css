@@ -1,0 +1,71 @@
+.textArea {
+    outline: none;
+    border: none;
+    width: 100%;
+    resize: none;
+}
+.description {
+    font-size: 13px;
+}
+.container {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 10px 0;
+    cursor: text;
+}
+.container:hover {
+    transition: 0.1s;
+    border-color: rgba(0, 0, 0, .4);
+}
+.textAreaBlock {
+    padding: 5px;
+}
+.button {
+    font-size: 14px;
+    display: inline-blocks;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 12px;
+    gap: 12px;
+    line-height: 18px;
+    padding: 6px 10px;
+    height: 32px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+.redBtn {
+
+    color: white;
+    background-color: #db4c3f;
+}
+.whiteBtn {
+    margin: 10px;
+    background-color: white;
+    color: #000000;
+    border: 1px solid rgb(80, 74, 74);
+}
+.plus {
+    background-image: url('./../../assets/images/plus.png') !important;
+    background-repeat: no-repeat !important;
+    background-size: 24px !important;
+    background: white;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+}
+.createText {
+    display: inline-block;
+    vertical-align: top;
+    margin: 2px 0 0 10px;
+    color: silver;
+}
+.creatorButtons {
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.creatorButtons:hover > .createText {
+    color: #db4c3f;
+}

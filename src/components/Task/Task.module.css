@@ -1,0 +1,147 @@
+  .round {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .round label {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 24px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 24px;
+  }
+  .round label:hover {
+    border: 2px solid rgb(247, 82, 82);
+    transition: 0.1s;
+  }
+  
+  .round label:after {
+    border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
+    content: "";
+    height: 5px;
+    left: 6px;
+    opacity: 0;
+    position: absolute;
+    top: 7px;
+    transform: rotate(-45deg);
+    width: 11px;
+  }
+  
+
+  
+  .round input[type="checkbox"]:checked + label {
+    background-color: #66bb6a;
+    border-color: #66bb6a;
+  }
+  
+  .round input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+  }
+  .taskText {
+      display: inline-block;
+      position: absolute;
+      color: #202020;
+      width: calc(100% - 70px);
+  }
+  .taskText p {
+    margin: 0;
+    font-size: 12px;
+    color: grey;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .containerCheckbox {
+      display: inline-block;
+      padding-right: 20px;
+  }
+  .container {
+      padding: 15px 0 20px 0px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: bottom;
+      position: relative;
+  }
+  .icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background-size: 24px;
+    background-position: top right;
+    cursor: pointer;
+  }
+  .edit {
+    top: 15px;
+    right: 140px;
+    background-image: url(./../../assets/images/writing.png);
+  }
+  .term {
+    top: 15px;
+    right: 100px;
+    background-image: url(./../../assets/images/deadlines.png);
+  }
+  .comment {
+    top: 15px;
+    right: 60px;
+    background-image: url(./../../assets/images/comment.png);
+  }
+  .threeDots {
+    top: 15px;
+    right: 20px;
+    background-image: url(./../../assets/images/threeDots.png);
+  }
+
+  .iconBlock {
+    display: none;
+  }
+  .container:hover .iconBlock {
+    display: block;
+    transition: 0.1s;
+  }
+  .container:hover {
+    border-color: rgba(0, 0, 0, .4);
+  }
+
+  /* three dots dropdown */
+  
+  .dropdownContent {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+    top: 45px;
+  }
+  
+  .dropdownContent .dropElementn {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    position: relative;
+  }
+  
+  .dropdownContent .dropElementn:hover {background-color: #f1f1f1}
+
+  .deleteIcon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-image: url('./../../assets/images/delete\ \(1\).png');
+    top: 10px;
+  }
+  .dropText {
+    margin: 0 0 0 30px;
+    padding: 0;
+  }
+  
+  

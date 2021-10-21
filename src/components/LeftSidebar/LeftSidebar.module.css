@@ -1,0 +1,46 @@
+.leftSidebarContainer {
+    height: calc(100vh - 44px);
+    width: 296px;
+    background-color: rgba(238, 195, 195, 0.2);
+    position: fixed;
+    margin-top: 44px;
+    
+}
+.topFilters {
+    margin-top: 40px;
+    margin-left: 40px;
+}
+.filter {
+    color: #333;
+    height: 50px;
+    text-decoration: none;
+    
+}
+.filterList {
+    height: 24px;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    padding: 2px 0px 0px 40px;
+}
+.count {
+    position: absolute;
+    top: -15px;
+    right: 35px;
+    color: rgb(143, 143, 143);
+}
+.containerFilters {
+    position: relative;
+    margin-top: 20px;
+}
+.inboxImg {
+    background-image: url('./../../assets/images/inbox.png');
+}
+.todayImg {
+    background-image: url('./../../assets/images/calendar.png');
+}
+.upcomingImg {
+    background-image: url('./../../assets/images/month.png');
+}
+.backClr {
+    text-decoration: underline !important;
+}
