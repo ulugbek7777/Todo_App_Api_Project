@@ -5,7 +5,7 @@ import {compose} from "redux";
 import Taskmodal from './TaskModal';
 import { getModalData, taskFinished, updateTask, deleteTask, 
     getSubtaskCreator, getSubtaskFinished, getUpdateSubtask,
-    getDeleteSubTask, } from './../../redux/data-reducer'
+    getDeleteSubTask, getUpdateTaskPosition } from './../../redux/data-reducer'
 
 class TaskModalContainer extends React.Component {
     componentDidMount() {
@@ -31,6 +31,9 @@ class TaskModalContainer extends React.Component {
                     getUpdateSubtask={this.props.getUpdateSubtask}
                     getDeleteSubTask={this.props.getDeleteSubTask}
                     taskToday={this.props.taskToday}
+                    priority={u.priority}
+                    getUpdateTaskPosition={this.props.getUpdateTaskPosition}
+                    chapters={this.props.chapters}
                     />
                 )}
             </div>
@@ -45,12 +48,14 @@ let mapStateToProps = (state) => {
         subtasks: state.userData.modalData.subtasks,
         taskToday: state.userData.taskTodayCheck,
         // required: state.userData.modalData.task.required, 
+        chapters: state.userData.chapters,
     })
 }
 
 export default compose(
     connect(mapStateToProps, { getModalData, taskFinished, updateTask, deleteTask, 
         getSubtaskCreator, getSubtaskFinished, getUpdateSubtask, getDeleteSubTask,
+        getUpdateTaskPosition,
     }),
     withRouter
 )(TaskModalContainer);

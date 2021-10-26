@@ -63,6 +63,9 @@ const Chapters = (props) => {
                     deleteTask={props.deleteTask}
                     taskToday={props.taskToday}
                     description={u.description}
+                    priority={u.priority}
+                    getUpdateTaskPosition={props.getUpdateTaskPosition}
+                    chapters={props.chapters}
                     />)
             }
             {

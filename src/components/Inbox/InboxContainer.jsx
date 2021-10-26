@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import { getUserTasks, getTaskCreator, taskFinished, updateTask, deleteTask, 
     getUserChapters, getChaptersCreator, getChapterTaskCreator, getChaptersUpdate,
-    getChaptersDelete } from '../../redux/data-reducer';
+    getChaptersDelete, getUserTasksOrderPriority, getUpdateTaskPosition } from '../../redux/data-reducer';
 import Inbox from './Inbox';
 
 class InboxContainer extends React.Component {
@@ -26,6 +26,8 @@ class InboxContainer extends React.Component {
             getChapterTaskCreator={this.props.getChapterTaskCreator}
             getChaptersUpdate={this.props.getChaptersUpdate}
             getChaptersDelete={this.props.getChaptersDelete}
+            getUserTasksOrderPriority={this.props.getUserTasksOrderPriority}
+            getUpdateTaskPosition={this.props.getUpdateTaskPosition}
             />
         )
     }
@@ -45,6 +47,7 @@ export default connect(mapStateToProps, {getUserTasks,
     updateTask, deleteTask,
     //chapters
     getUserChapters,
-    getChaptersCreator, getChapterTaskCreator, getChaptersUpdate, getChaptersDelete
+    getChaptersCreator, getChapterTaskCreator, getChaptersUpdate, getChaptersDelete, getUserTasksOrderPriority,
+    getUpdateTaskPosition
 
 })(InboxContainer);

@@ -46,8 +46,40 @@
     border: none;
     outline: none;
 }
+.headerInput:focus .resultBlock {
+    display: block;
+}
 .rightElements {
     height: 44px;
     margin: -5px 20px 0px 0px;
     float: right;
+}
+.resultBlock {
+    position: absolute;
+    width: 268px;
+    padding: 5px 5px;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 0 8px rgb(0 0 0 / 5%), 0 10px 10px -5px rgb(0 0 0 / 5%), 0 20px 25px -5px rgb(0 0 0 / 10%);
+}
+.taskBlock {
+    position: relative;
+}
+.taskText {
+    margin: 0;
+    padding: 0;
+    width: calc(100% - 35px);
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 30px;
+    text-align: left;
+}
+.taskIcon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-image: url('./../../assets/images/dry-clean.png');
+    background-size: 20px;
+    top: 14px;
 }

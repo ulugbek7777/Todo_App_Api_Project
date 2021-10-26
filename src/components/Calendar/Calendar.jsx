@@ -44,6 +44,9 @@ export default function Calendar(props) {
                     deleteTask={props.deleteTask}
                     calendar={true}
                     taskToday={props.taskToday}
+                    priority={u.priority}
+                    getUpdateTaskPosition={props.getUpdateTaskPosition}
+                    chapters={props.chapters}
                     />) }
                     {
                         btn ? <CreateTasks setBtn={setBtn} getTaskCreator={ props.getTaskCreator } date={dayjs(value).format('YYYY-DD-MM')} />

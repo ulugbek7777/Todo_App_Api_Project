@@ -30,6 +30,9 @@ export default function Today(props) {
             deleteTask={props.deleteTask}
             today={true}
             taskToday={props.taskToday}
+            priority={u.priority}
+            chapters={props.chapters}
+            getUpdateTaskPosition={props.getUpdateTaskPosition}
             />) }
             {
                 btn ? <CreateTasks setBtn={setBtn} getTaskCreator={ props.getTaskCreator } />

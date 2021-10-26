@@ -11,6 +11,8 @@ import TodayContainer from './components/Today/TodayContainer';
 import CalendarContainer from './components/Calendar/CalendarContainer';
 import { compose } from 'redux';
 import {connect} from "react-redux";
+import { DragDropContext } from 'react-beautiful-dnd';
+
 class App extends Component {
 
     render() {
@@ -19,23 +21,23 @@ class App extends Component {
         return (
             <div className = "App">
             <HeaderContainer />
-            <div>
-                <div style={{ position: 'relative' }}>
-                <LeftSidebar />
-                </div>
-                <div className = "boss-container">  
-                    <div className='container'>
-                        <Route path = '/register' render = { () => <Register /> }/>
-                        <Route path = '/login' render = { () => <Login /> }/>
-                        <Route path = '/inbox' render = { () => <InboxContainer /> }/>
-                        <Route path = '/today' render = { () => <TodayContainer /> }/>
-                        <Route path = '/upcoming' render = { () => <CalendarContainer /> }/>
-                    </div>        
-                    
-                </div>
+                <div>
+                    <div style={{ position: 'relative' }}>
+                    <LeftSidebar />
+                    </div>
+                    <div className = "boss-container">  
+                        <div className='container'>
+                            <Route path = '/register' render = { () => <Register /> }/>
+                            <Route path = '/login' render = { () => <Login /> }/>
+                            <Route path = '/inbox' render = { () => <InboxContainer /> }/>
+                            <Route path = '/today' render = { () => <TodayContainer /> }/>
+                            <Route path = '/upcoming' render = { () => <CalendarContainer /> }/>
+                        </div>        
+                    </div>
 
-                <Route path = { this.props.taskTodayCheck + '/task/:id?'} render = { () => <TaskModalContainer /> }/>
-            </div>
+                    <Route path = { this.props.taskTodayCheck + '/task/:id?'} render = { () => <TaskModalContainer /> }/>
+                </div>
+            
         </div> 
         )
     }

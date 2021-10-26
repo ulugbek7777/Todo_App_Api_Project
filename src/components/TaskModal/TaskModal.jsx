@@ -23,6 +23,9 @@ const Taskmodal = (props) => {
                                 updateTask={props.updateTask}
                                 deleteTask={props.deleteTask}
                                 taskModal={ true }
+                                priority={props.priority}
+                                getUpdateTaskPosition={props.getUpdateTaskPosition}
+                                chapters={props.chapters}
                                 />
                     </div>
                     <div className={style.content}>

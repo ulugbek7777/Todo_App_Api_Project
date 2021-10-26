@@ -24,31 +24,31 @@ const Inbox = (props) => {
             setChapterInput('');
         }
     }
+    
     const cencel = () => { 
         setDisplayChapterInput(false);
         setChapterInput('');
-    } 
-    const flagIco = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="red" stroke="grey" 
-    stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line>
-    </svg>
+    }
+
     return (
         <div>
-            { flagIco }
             <div className={style.headerContainer}>
                 <div className={style.leftText}>
                     <p className={style.inboxText}>Inbox</p>
                 </div>
                 <div className={style.rightIcons}>
-                    <img className={style.icon} src={sort} alt="sort" />
+                    <img onClick={props.getUserTasksOrderPriority} className={style.icon} src={sort} alt="sort" />
                     <img className={style.icon} src={more} alt="more" />
                 </div>
             </div>
             { props.tasks && props.tasks.map(u => <Task 
-            task={ u.task } description={u.description} required={u.required} id={u.id} taskFinished={ props.taskFinished }
-            updateTask={props.updateTask}
-            deleteTask={props.deleteTask}
-            taskToday={ props.taskToday }
+                task={ u.task } description={u.description} required={u.required} id={u.id} taskFinished={ props.taskFinished }
+                updateTask={props.updateTask}
+                deleteTask={props.deleteTask}
+                taskToday={ props.taskToday }
+                priority={u.priority}
+                chapters={props.chapters}
+                getUpdateTaskPosition={props.getUpdateTaskPosition}
             />) }
             {
                 btn ? <CreateTasks setBtn={setBtn} getTaskCreator={ props.getTaskCreator } />
@@ -76,6 +76,8 @@ const Inbox = (props) => {
                         taskToday={props.taskToday}
                         getChaptersUpdate={props.getChaptersUpdate}
                         getChaptersDelete={props.getChaptersDelete}
+                        getUpdateTaskPosition={props.getUpdateTaskPosition}
+                        chapters={props.chapters}
                         />
                     )
                 })

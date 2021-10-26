@@ -7,6 +7,7 @@ const SET_USER_DATA_CALENDAR = 'SET_USER_DATA_CALENDAR';
 const CREATE_TASK_DATA = 'CREATE_TASK_DATA';
 const FINISHED_TASK = 'FINISHED_TASK';
 const UPDATE_TASK = 'UPDATE_TASK';
+const UPDATE_TASK_POSITION = 'UPDATE_TASK_POSITION';
 const DELETE_TASK = 'DELETE_TASK';
 
 //MODAL WINDOW
@@ -25,11 +26,19 @@ const CREATE_CHAPTER_TASK_DATA = 'CREATE_CHAPTER_TASK_DATA';
 const UPDATE_CHAPTER_TASK_DATA = 'UPDATE_CHAPTER_TASK_DATA';
 const DELETE_CHAPTER_TASK_DATA = 'DELETE_CHAPTER_TASK_DATA';
 
+//search
+const SET_TASK_AND_CHAPTER_SEARCHING = 'SET_TASK_AND_CHAPTER_SEARCHING'; 
+
 
 let initialState = {
     tasks: null, 
     taskTodayCheck: '',
     chapters: null,
+    searchingData: {
+        task: [],
+        chapter: [],
+        check: false,
+    },
     modalData: {
         task: [],
         subtasks: [],
@@ -81,15 +90,18 @@ const dataReducer = (state = initialState, action) => {
             state.tasks.filter(task => {
                 if(task.id === parseInt(action.data.id, 10)) {
                     task.task = action.data.newTask;
-                    task.description = action.data.newDescription
+                    task.description = action.data.newDescription;
+                    task.priority = action.data.numPriority;
                 };
             });
             state.chapters.find((chapter) => {
                 if(chapter.id === action.data.chapter_id) {
                     for(let i = 0;i <= chapter.task.length - 1;i++) {
                         if(chapter.task[i].id === parseInt(action.data.id, 10)) {
+                            debugger
                             chapter.task[i].task = action.data.newTask
                             chapter.task[i].description = action.data.newDescription
+                            chapter.task[i].priority = action.data.numPriority
                         }
                     }
                 }
@@ -97,6 +109,7 @@ const dataReducer = (state = initialState, action) => {
             if(state.modalData.checkModalActive) {
                 state.modalData.task[0].task = action.data.newTask; 
                 state.modalData.task[0].description = action.data.newDescription;
+                state.modalData.task[0].priority = action.data.numPriority
                 return checker(state);
             }
             return {
@@ -108,6 +121,57 @@ const dataReducer = (state = initialState, action) => {
                     task: [...state.modalData.task],
                     checkModalActive: false
                 }
+            }
+        }
+
+        case UPDATE_TASK_POSITION: {
+            let currentTask = {};
+            let Tks = [];
+            if (action.data.current_chapter_id) {
+                state.chapters.map(d => {
+                    if(d.id === action.data.current_chapter_id) {
+                        d.task.map(y => {
+                            if(y.id === action.data.id) {
+                                currentTask = y;
+                            }else {
+                                Tks = [...Tks, y]
+                            }
+                        });
+                        d.task = Tks;
+                    }
+                });
+                if (action.data.chapter_id === 0) {
+                    state.tasks.push(currentTask);
+                } else {
+                    state.chapters.filter(u => {
+                        if(u.id === action.data.chapter_id) {
+                            u.task.push(currentTask);
+                        }
+                    });
+                }
+                
+                
+            } else {
+                state.tasks = state.tasks.filter(u => {
+                    if(u.id === action.data.id) {
+                        state.chapters.find(d => {
+                            if(d.id === action.data.chapter_id) {
+                                d.task.push(u);
+                            }
+                        });
+                    }
+                    if(state.taskTodayCheck === '/today' || state.taskTodayCheck === '/upcoming') {
+                        return u;  
+                    } else {
+                        return u.id !== action.data.id; 
+                    }
+                                       
+                });
+            }
+            return {
+                ...state,
+                tasks: [...state.tasks],
+                chapters: [...state.chapters],
             }
         }
             
@@ -251,6 +315,27 @@ const dataReducer = (state = initialState, action) => {
                 chapters: [...state.chapters],
             }
         }
+        case SET_TASK_AND_CHAPTER_SEARCHING: {
+            let data = state.tasks.filter((val) => {
+                if(val.task.toLowerCase().includes(action.searchTerm.toLowerCase())) {
+                    state.searchingData.check = true;
+                    return val;
+                }
+            });
+            state.searchingData.task = data;
+            if(action.searchTerm === "") {
+                state.searchingData.task = [];
+                state.searchingData.check = false;
+            }
+            return {
+                ...state,
+                searchingData: {
+                    task: [...state.searchingData.task],
+                    chapter: [...state.searchingData.chapter],
+                    check: state.searchingData.check
+                }
+            }
+        }
 
         default:
             return state;
@@ -262,6 +347,7 @@ export const setUserTodayTasks = (tasks) => ({type: SET_USER_DATA_TODAY, tasks})
 export const setUserCalendarTasks = (tasks) => ({type: SET_USER_DATA_CALENDAR, tasks});
 export const createTaskData = (task) => ({type: CREATE_TASK_DATA, task});
 export const updateTaskData = (data) => ({type: UPDATE_TASK, data});
+export const updateTaskPosition = (data) => ({type: UPDATE_TASK_POSITION, data});
 export const finishedTaskData = (data) => ({type: FINISHED_TASK, data});
 export const deleteTaskData = (data) => ({type: DELETE_TASK, data});
 
@@ -284,8 +370,19 @@ export const updateChapterTaskData = (data) => ({type: UPDATE_CHAPTER_TASK_DATA,
 export const deleteChapterTaskData = (id) => ({type: DELETE_CHAPTER_TASK_DATA, id});
 //endChapters
 
+export const searchingData = (searchTerm) => ({type: SET_TASK_AND_CHAPTER_SEARCHING, searchTerm});
+
 export const getUserTasks = () => (dispatch) => {
     return usersAPIData.tasks()
+        .then(response => {
+            if (true) {
+                let tasks = response;
+                dispatch(setUserTasks(tasks));
+            }
+    });
+};
+export const getUserTasksOrderPriority = () => (dispatch) => {
+    return usersAPIData.tasksOrderPriority()
         .then(response => {
             if (true) {
                 let tasks = response;
@@ -313,8 +410,8 @@ export const getUserCalendarTasks = (date) => (dispatch) => {
     });
 };
 
-export const getTaskCreator = (task, chapter_id, description, date) => (dispatch) => {
-    return usersAPIData.createTask(task, chapter_id, description, date)
+export const getTaskCreator = (task, chapter_id, description, date, numPriority) => (dispatch) => {
+    return usersAPIData.createTask(task, chapter_id, description, date, numPriority)
         .then(response => {
             let task = response.task;
             dispatch(createTaskData(task));
@@ -327,17 +424,27 @@ export const taskFinished = (id, chapter_id) => (dispatch) => {
             dispatch(finishedTaskData({id, chapter_id}));
     });
 }
-export const updateTask = (id, newTask, newDescription) => (dispatch) => {
-    return usersAPIData.updateTaskData(id, newTask, newDescription)
+export const updateTask = (id, newTask, newDescription, numPriority) => (dispatch) => {
+    return usersAPIData.updateTaskData(id, newTask, newDescription, numPriority)
         .then(response => {
             let data = {
                 'id': parseInt(id, 10),
                 newTask, 
                 'chapter_id': response.chapter_id,
                 newDescription,
+                numPriority
             }
             dispatch(updateTaskData(data));
             
+    });
+}
+export const getUpdateTaskPosition = (id, chapter_id, current_chapter_id) => (dispatch) => {
+    return usersAPIData.updateTaskPosition(id, chapter_id)
+        .then(response => {
+            let data = {
+                id, chapter_id, current_chapter_id
+            }
+            dispatch(updateTaskPosition(data));
     });
 }
 
@@ -422,8 +529,8 @@ export const getChaptersUpdate = (chapter, id) => (dispatch) => {
     });
 }
 
-export const getChapterTaskCreator = (task, chapter_id) => (dispatch) => {
-    return usersAPIData.createTask(task, chapter_id)
+export const getChapterTaskCreator = (task, chapter_id, description) => (dispatch) => {
+    return usersAPIData.createTask(task, chapter_id, description)
         .then(response => {
             let task = response.task;
             let chapter_id = response.task.chapter_id;
@@ -437,6 +544,10 @@ export const getChaptersDelete = (id) => (dispatch) => {
         .then(response => {
             dispatch(deleteChapterTaskData(id));
     });
+}
+
+export const getSearchingData = (searchTerm) => (dispatch) => {
+    return dispatch(searchingData(searchTerm));
 }
 
 export default dataReducer;

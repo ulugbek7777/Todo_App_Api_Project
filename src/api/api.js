@@ -28,6 +28,12 @@ export const usersAPIData = {
                 return response.data;
             });
     },
+    tasksOrderPriority() {
+        return instance.get('tasks/order/priority')
+            .then(response => {
+                return response.data;
+            });
+    },
     tasksToday() {
         return instance.get('tasks/today')
             .then(response => {
@@ -40,14 +46,14 @@ export const usersAPIData = {
                 return response.data;
             });
     },
-    createTask(task, chapter_id = 0, description, date) {
+    createTask(task, chapter_id = 0, description, date, numPriority) {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
         //debugger
         today = yyyy + '-' + dd + '-' + mm;
-        return instance.post('store/task', { task, 'date': date ? date : today, 'chapter_id': chapter_id, description, 'priority': 1 })
+        return instance.post('store/task', { task, 'date': date ? date : today, 'chapter_id': chapter_id, description, numPriority })
             .then(response => {
                 return response.data;
             });
@@ -58,8 +64,14 @@ export const usersAPIData = {
                 return response.data;
             });
     },
-    updateTaskData(id, newTask, description) {
-        return instance.put('store/task/update/' + id, { 'task': newTask, description, 'priority': 3 })
+    updateTaskData(id, newTask, description, numPriority) {
+        return instance.put('store/task/update/' + id, { 'task': newTask, description, numPriority })
+            .then(response => {
+                return response.data;
+            });
+    },
+    updateTaskPosition(id, chapter_id) {
+        return instance.put('task/changeps/' + id, { chapter_id })
             .then(response => {
                 return response.data;
             });
