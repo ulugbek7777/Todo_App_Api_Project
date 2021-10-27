@@ -41,7 +41,7 @@ const Task = (props) => {
     }else {
         colorBorder = '#ccc';
     }
-    debugger
+    
     return (
         <div>
             <div className={style.container} style={{ cursor: 'pointer', border: check && 'none' }}>

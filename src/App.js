@@ -11,8 +11,8 @@ import TodayContainer from './components/Today/TodayContainer';
 import CalendarContainer from './components/Calendar/CalendarContainer';
 import { compose } from 'redux';
 import {connect} from "react-redux";
-import { DragDropContext } from 'react-beautiful-dnd';
-
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
 class App extends Component {
 
     render() {
@@ -20,7 +20,8 @@ class App extends Component {
         //debugger
         return (
             <div className = "App">
-            <HeaderContainer />
+                <DndProvider backend={HTML5Backend}>
+                <HeaderContainer />
                 <div>
                     <div style={{ position: 'relative' }}>
                     <LeftSidebar />
@@ -37,6 +38,7 @@ class App extends Component {
 
                     <Route path = { this.props.taskTodayCheck + '/task/:id?'} render = { () => <TaskModalContainer /> }/>
                 </div>
+                </DndProvider>
             
         </div> 
         )

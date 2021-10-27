@@ -6,6 +6,7 @@ import more from './../../assets/images/more.png';
 import CreateTasks from '../CreateTasks/CreateTasks';
 import Chapters from './Chapters/Chapters';
 import ChapterCreator from './Chapters/ChapterCreator';
+import { Droppable } from 'react-beautiful-dnd';
 
 const Inbox = (props) => {
 
@@ -41,15 +42,18 @@ const Inbox = (props) => {
                     <img className={style.icon} src={more} alt="more" />
                 </div>
             </div>
-            { props.tasks && props.tasks.map(u => <Task 
-                task={ u.task } description={u.description} required={u.required} id={u.id} taskFinished={ props.taskFinished }
-                updateTask={props.updateTask}
-                deleteTask={props.deleteTask}
-                taskToday={ props.taskToday }
-                priority={u.priority}
-                chapters={props.chapters}
-                getUpdateTaskPosition={props.getUpdateTaskPosition}
-            />) }
+            { props.tasks && props.tasks.map(u => <div className={style.taskBlock}>
+                <div className={style.DragAndDropIcon}></div>
+                <Task 
+                        task={ u.task } description={u.description} required={u.required} id={u.id} taskFinished={ props.taskFinished }
+                        updateTask={props.updateTask}
+                        deleteTask={props.deleteTask}
+                        taskToday={ props.taskToday }
+                        priority={u.priority}
+                        chapters={props.chapters}
+                        getUpdateTaskPosition={props.getUpdateTaskPosition}
+                    />
+                </div>) }
             {
                 btn ? <CreateTasks setBtn={setBtn} getTaskCreator={ props.getTaskCreator } />
                 : <div onClick={ () => setBtn(true) } className={style.creatorButtons}>

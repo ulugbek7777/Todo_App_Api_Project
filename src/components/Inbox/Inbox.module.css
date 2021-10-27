@@ -188,7 +188,23 @@
   .dropdown:hover .dropdownContent {
     display: block;
   }
-  
+  .taskBlock {
+      position: relative;
+      margin-left: -30px;
+  }
+  .DragAndDropIcon {
+      width: 20px;
+      height: 20px;
+      background-image: url('./../../assets/images/drag.png');
+      background-size: 20px;
+      float: left;
+      margin: 18px 0 0 0px;
+      display: none;
+      cursor: move;
+  }
+  .taskBlock:hover > .DragAndDropIcon {
+      display: block;
+  }
 
 
 
